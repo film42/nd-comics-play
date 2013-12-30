@@ -1,6 +1,5 @@
 @(els: Array[org.jsoup.nodes.Element])
 
-
 @import org.jsoup.nodes.Element
 
 <ul>
@@ -8,6 +7,7 @@
     <li>
         <!--<img src=@e.attr("href")/>-->
         <p>@e.attr("src")</p>
+        <img src='/proxy?url=@e.attr("src")' alt=""/>
     </li>
     }
 </ul>
