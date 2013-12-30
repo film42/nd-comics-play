@@ -1,0 +1,30 @@
+
+@import helper._
+@import org.jsoup.nodes.Element
+
+@main("Welcome to my App") {
+
+    <div class="here">
+        <ul></ul>
+    </div>
+
+}
+
+<script>
+    function addLinks() {
+        $(document).ready(function() {
+            $.get("/specific", function(data) {
+                var comp = $($.parseHTML(data)).find('li');
+                comp.hide();
+                comp.prependTo($(".here ul")).slideDown();
+            });
+        });
+    }
+
+    setInterval(function() {
+        addLinks();
+    }, 2000);
+
+    // Init
+    addLinks();
+</script>
