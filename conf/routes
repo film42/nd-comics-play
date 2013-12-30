@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /specific                   controllers.Application.specific
+GET     /random                     controllers.Application.random
 GET     /proxy                      controllers.Application.proxy(url ?= "")
 
 # Map static resources from the /public folder to the /assets URL path

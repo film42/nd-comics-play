@@ -27,17 +27,21 @@ object Application extends Controller {
     list.map(x => x.asInstanceOf[Element])
   }
 
-  def index = Action {
-      Ok(views.html.index())
-  }
-
-  def specific = Action.async {
+  def index = Action.async {
     val elementList = Future {
       val els = getRandomImages
 
-      println("Out: " + els(0).attr("http"))
+      Ok(views.html.index(els))
+    }
 
-      Ok(views.html.specific(els))
+    elementList
+  }
+
+  def random = Action.async {
+    val elementList = Future {
+      val els = getRandomImages
+
+      Ok(views.html.random(els))
     }
 
     elementList
