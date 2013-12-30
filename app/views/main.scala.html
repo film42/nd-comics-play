@@ -1,5 +1,4 @@
 @(title: String)(content: Html)
-
 <!DOCTYPE html>
 
 <html>
@@ -12,6 +11,47 @@
         <script src='@routes.Assets.at("javascripts/main.old.js")' type="text/javascript"></script>
     </head>
     <body>
+        <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">NATALIE DEE</a>
+                </div>
+            </div>
+        </header>
+
+        <footer>
+            <div class="container">
+                <div class="message">
+                    <center>
+                        <a class="btn btn-success" href="/">More Random!</a>&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-warning" href="/archives">Pick a Month</a>
+                    </center>
+                </div>
+            </div>
+        </footer>
+
         @content
+
+        <div class="loading hidden">
+            <div class="container">
+                <div class="message">
+                    <center>
+                        <p>Loading more... </p>
+                        <img src="/assets/images/loading.gif">
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="message">
+                    <center>
+                        <a class="btn btn-success" href="/">More Random!</a>&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-warning" href="/archives">Pick a Month</a>
+                    </center>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
