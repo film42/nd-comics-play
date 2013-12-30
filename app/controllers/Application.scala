@@ -7,13 +7,8 @@ import org.jsoup.nodes.Document
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-import javax.imageio.ImageIO
-import java.awt.image.BufferedImage
-import java.net.URL
-import java.io.{FileOutputStream, File}
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.ws.WS
-import play.api.libs.ws.Response
 
 object Application extends Controller {
 
