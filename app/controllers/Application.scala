@@ -9,13 +9,23 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.ws.WS
+import java.util.Calendar
 
 object Application extends Controller {
 
+  val userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 " +
+                  "(KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+
   def getRandomImages: Array[Element] = {
     val url = "http://www.nataliedee.com/index.php"
-    val userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 " +
-                    "(KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+    val doc: Document = Jsoup.connect(url).header("User-Agent", userAgent).get()
+    val list = doc.select(".arcDayComic img.comic").toArray
+
+    list.map(x => x.asInstanceOf[Element])
+  }
+
+  def getArchiveImages(year: String, month: String): Array[Element] = {
+    val url = "http://www.nataliedee.com/archives/"+year+"/"+month+"/"
     val doc: Document = Jsoup.connect(url).header("User-Agent", userAgent).get()
     val list = doc.select(".arcDayComic img.comic").toArray
 
@@ -41,6 +51,24 @@ object Application extends Controller {
 
     elementList
   }
+
+  def archivesHome = Action {
+    val years = Range(2008, Calendar.getInstance().get(Calendar.YEAR))
+    val months = Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+    Ok(views.html.archiveHome(years, months))
+  }
+
+  def archivesSelect(year: String, month: String) = Action.async {
+    val elementList = Future {
+      val els = getArchiveImages(year, month)
+
+      Ok(views.html.archiveSelection(els, year, month))
+    }
+
+    elementList
+  }
+
 
   def proxy(url: String) = Action {
     val userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 " +

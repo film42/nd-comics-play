@@ -1,0 +1,65 @@
+@(els: Array[org.jsoup.nodes.Element], year: String, month: String)
+@import org.jsoup.nodes.Element
+
+@main("Natalie Dee Mobile") {
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">NATALIE DEE</a>
+        </div>
+    </div>
+</header>
+
+<footer>
+    <div class="container">
+        <div class="message">
+            <center>
+                <a class="btn btn-success" href="/">More Random!</a>&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-warning" href="/archives/">Pick a Month</a>
+            </center>
+        </div>
+    </div>
+</footer>
+
+<section>
+    <div class="container">
+        <div class="message">
+            <center>
+                <h3>@month @year</h3>
+            </center>
+        </div>
+    </div>
+</section>
+
+<div class="images">
+    <ul>
+        @for(e <- els) {
+        <li>
+            <img src='/proxy?url=@e.attr("src")' alt=""/>
+        </li>
+        }
+    </ul>
+</div>
+
+<div class="loading hidden">
+    <div class="container">
+        <div class="message">
+            <center>
+                <p>Loading more... </p>
+                <img src="/assets/images/loading.gif">
+            </center>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="message">
+            <center>
+                <a class="btn btn-success" href="/">More Random!</a>&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-warning" href="/archives/">Pick a Month</a>
+            </center>
+        </div>
+    </div>
+</footer>
+}
