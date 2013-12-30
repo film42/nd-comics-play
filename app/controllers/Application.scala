@@ -18,8 +18,10 @@ import play.api.libs.ws.Response
 object Application extends Controller {
 
   def getRandomImages: Array[Element] = {
-    val url = "http://nataliedee.com/index.php"
-    val doc: Document = Jsoup.connect(url).get()
+    val url = "http://www.nataliedee.com/index.php"
+    val userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 " +
+                    "(KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+    val doc: Document = Jsoup.connect(url).header("User-Agent", userAgent).get()
     val list = doc.select(".arcDayComic img.comic").toArray
 
     list.map(x => x.asInstanceOf[Element])
@@ -32,6 +34,8 @@ object Application extends Controller {
   def specific = Action.async {
     val elementList = Future {
       val els = getRandomImages
+
+      println("Out: " + els(0).attr("http"))
 
       Ok(views.html.specific(els))
     }
